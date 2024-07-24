@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sustainable</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+.btn9{width:100px !important; background-color:#f5f5f5 !important; border:none !important; color:#333 !important; padding:4px 0; margin:0; border:1px solid #8A8B8D !important; cursor:pointer;}
+.btn9:hover{background-color:#f5f5f5;}
+.btn9:active{background-color:#f5f5f5;}
+.btn9:disabled, .btn9[disabled]{color:#cccccc !important; cursor:default !important;}
+h2{text-align:center; margin:100px 0 30px !important;}
+.form99{background-color:#f5f5f5; padding:30px 90px; display:flex; justify-content:center;}
+.form99 input[type="text"]{padding:10px; border: 1px solid #ccc; border-radius:20px; width:285px;}
+.form99 .search{float: left; margin-right:25px;}
+.form99 .search i{margin-left:-30px; cursor:pointer;}
+.form99 select{margin-right:10px; padding:10px 5px; border:1px solid #ccc; border-radius:20px; width:160px; background-color:#ffffff; float:left; font-size:14px; color:#8A8B8D;}
+.form99 button{margin-top:4px;}
+.con9{display:flex; flex-wrap:wrap; justify-content:center; gap:20px; width:85%; margin:30px auto;}
+.con9 .card{border:1px solid #ddd; border-radius:12px; width:32%; /*width:385px;*/ background-color:#fff;}
+.con9 .card .b {padding:15px 20px;}
+.con9 .card h2{font-size:20px; margin:0;}
+.con9 .card p{margin:0 0 4px 0; color:#070707; margin:0 0 5px;}
+.con9 .card p.aed{font-size:14px; height:20px; overflow:hidden;}
+.con9 .card p.title{font-size:16px; font-weight:700; margin-bottom:5px; height:45px; overflow:hidden;}
+.con9 .card p.area{font-size:14px; margin-bottom:5px;}
+.con9 .card ul{display:flex; list-style:none; padding:0;}
+.con9 .card ul li{font-size:12px; color:#404040; margin-right:15px;}
+.con9 .card ul li i{font-size:16px; color:#404040; margin-right:5px}
+.con9 .card img{width:100%; height:197px; object-fit:cover; object-position:center center; border-radius:12px 12px 0 0;}
+.con9 .b2{width:100%; height:201px;}
+.pagination{display:flex; justify-content:center; margin:60px 0;}
+.pagination p.p{margin:5px 15px 0;}
+</style>
+</head>
+<body>
+<!--https://bootcamp.uxdesign.cc/fetch-data-from-a-sample-api-and-render-it-in-a-card-using-javascript-and-css-step-by-step-guide-332bd4b70346-->
+<div class="form99">
+    <form id="filterForm">
+        <div class="search">
+            <input type="text" id="location" placeholder="City, community or building..."><i class="fa fa-search" onclick="renderData()"></i>
+        </div>
+
+    <select id="property-type" onChange="setUnitTypeFilter(event)">
+        <option value="Property Types">Property Type</option>
+        <option value="19">Apartments</option>
+        <option value="20">Villas</option>
+        <option value="196343">Townhouses</option>
+        <option value="23">Retail</option>
+        <option value="26">Plot</option>
+        <option value="24">Office</option>
+        <option value="196202">Land</option>
+    </select>
+    <select id="beds" onChange="setBedsFilter(event)">
+        <option value="Beds">Beds</option>
+        <option value="Studio">Studio</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+    </select>
+    <select id="Baths" onChange="setBathFilter(event)">
+        <option value="">Baths</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+    </select>
+    <select id="min-price" onchange="setMinPriceFilter(event)">
+        <option value="Min Price (AED)">Min Price (AED)</option>
+        <option value="100000">100000 (AED)</option>
+        <option value="200000">200000 (AED)</option>
+        <option value="300000">300000 (AED)</option>
+        <option value="400000">400000 (AED)</option>
+        <option value="500000">500000 (AED)</option>
+        <option value="600000">600000 (AED)</option>
+        <option value="700000">700000 (AED)</option>
+    </select>
+    <select id="max-price" onchange="setMaxPriceFilter(event)">
+        <option value="Max Price (AED)">Max Price (AED)</option>
+        <option value="100000">100000 (AED)</option>
+        <option value="200000">200000 (AED)</option>
+        <option value="300000">300000 (AED)</option>
+        <option value="400000">400000 (AED)</option>
+        <option value="500000">500000 (AED)</option>
+        <option value="600000">600000 (AED)</option>
+        <option value="700000">700000 (AED)</option>
+    </select>
+    <button class="btn9" type="button" onclick="renderData()">Filter</button>
+</form>
+</div><!--form99-->
+
+<h2 class="elementor-heading-title elementor-size-default">Properties For Buy In Abu Dhabi</h2>
+<div class="con9"></div>
+<div class="pagination">
+     <button class="btn9" id="prevBtn" onclick="prevPage()">Previous</button>
+    <p class="p" id="page-indicator"></p>
+    <button class="btn9" id="nextBtn" onclick="nextPage()">Next</button>
+</div>
+
+<!--JS-->
+<script>
+let data = null;
+let currentPage = 1;
+const itemsPerPage = 24; // Number of items to display per page
+let unitTypeFilter = 'Property Types';
+let bedsFilter = "Beds";
+let bathFilter = "Baths";
+let minPriceFilter = "Min Price (AED)";
+let maxPriceFilter = "Max Price (AED)";
+let locationFilter = '';
+
+function setUnitTypeFilter(e) {
+    currentPage = 1;
+    unitTypeFilter = e.currentTarget.value;
+}
+
+function setBedsFilter(e) {
+    currentPage = 1;
+    bedsFilter = e.currentTarget.value;
+}
+
+function setBathFilter(e) {
+    currentPage = 1;
+    bathFilter = e.currentTarget.value;
+}
+
+function setMinPriceFilter(e) {
+    currentPage = 1;
+    minPriceFilter = e.currentTarget.value;
+}
+
+function setMaxPriceFilter(e) {
+    currentPage = 1;
+    maxPriceFilter = e.currentTarget.value;
+}
+
+function xml2json(srcDOM) {
+let children = [...srcDOM.children];
+
+    // base case for recursion. 
+    if (!children.length) {
+        return srcDOM.innerHTML
+    }
+
+// initializing object to be returned. 
+let jsonResult = {};
+
+for (let child of children) {
+
+    // checking is child has siblings of same name. 
+    let childIsArray = children.filter(eachChild => eachChild.nodeName === child.nodeName).length > 1;
+
+    // if child is array, save the values as array, else as strings. 
+    if (childIsArray) {
+        if (jsonResult[child.nodeName] === undefined) {
+            jsonResult[child.nodeName] = [xml2json(child)];
+        } else {
+            jsonResult[child.nodeName].push(xml2json(child));
+        }
+    } else {
+        jsonResult[child.nodeName] = xml2json(child);
+    }
+}
+return jsonResult;
+}
+
+async function fetchData(pageIndex) {
+    if (!pageIndex) {
+        pageIndex = 1;
+    }
+    currentPage = pageIndex; // Update current page
+
+    // Existing fetchData logic...
+    //const cityId = '54788'; // Dubai
+    const cityId = '54798'; //Abu Dbabi
+    const moduleID = "1"; //sales
+    let api = 'https://webapi.goyzer.com/Company_enterpriseV2.asmx/GetUnitsWebsite?GroupCode=5053';
+    api = api + `&ModuleID=${moduleID}`;
+    api = api + `&UnitID=${cityId}`;
+    api = api + `&PropertyID=`;
+    api = api + `&PortfolioID=`;
+
+    if (unitTypeFilter && unitTypeFilter !== 'Property Types') {
+        api = api + `&UnitTypeID=${unitTypeFilter}`;
+    } else {
+        api = api + `&UnitTypeID=`;
+    }
+
+api = api + `&UnitStatusID=`;
+api = api + `&DateStampFrom=`;
+api = api + `&DateStampTo=`;
+api = api + `&CreatedDateFrom=`;
+api = api + `&CreatedDateTo=`;
+api = api + `&LastModifiedDateFrom=`;
+api = api + `&LastModifiedDateTo=`;
+api = api + `&IsManaged=`;
+api = api + `&DivisionID=`;
+api = api + `&PageIndex=${pageIndex}`;
+
+    if (bedsFilter && bedsFilter !== "Beds") {
+        api = api + `&Bedrooms=${bedsFilter}`;
+    } else {
+        api = api + `&Bedrooms=`;
+    }
+
+    if (bathFilter && bathFilter !== "Baths") {
+        api = api + `&Bathrooms=${bathFilter}`;
+    } else {
+        api = api + `&Bathrooms=`;
+    }
+
+    if (minPriceFilter && minPriceFilter !== 'Min Price (AED)') {
+        api = api + `&MinPrice=${minPriceFilter}`;
+    } else {
+        api = api + `&MinPrice=`;
+    }
+
+    if (maxPriceFilter && maxPriceFilter !== 'Max Price (AED)') {
+        api = api + `&MaxPrice=${maxPriceFilter}`;
+    } else {
+        api = api + `&MaxPrice=`;
+    }
+
+    var locationInput = document.getElementById('location');
+    if (locationInput) {
+        locationFilter = locationInput?.value?.trim();
+    }
+
+    if (locationFilter && locationFilter !== '') {
+        api = api + `&Location=${locationFilter}`;
+    } else {
+        api = api + `&Location=`;
+    }
+
+    try {
+        const response = await fetch(api, {
+        method: 'GET'
+    });
+
+        const parser = new DOMParser();
+        const srcDOM = parser.parseFromString(await response.text(), "application/xml");
+        data = xml2json(srcDOM);
+
+            if (data.ArrayOfGetUnitsData !== '' && !data.ArrayOfGetUnitsData.GetUnitsData.length) {
+                const array = [];
+                array.push(data.ArrayOfGetUnitsData.GetUnitsData);
+                data.ArrayOfGetUnitsData.GetUnitsData = array;
+            }
+
+            if (data && data.ArrayOfGetUnitsData && data.ArrayOfGetUnitsData.GetUnitsData && data.ArrayOfGetUnitsData.GetUnitsData.length > 0) {
+                if (moduleID === "1") {
+                    data.ArrayOfGetUnitsData.GetUnitsData.map(unit => {
+                    if (unit.SalesDetails && unit.SalesDetails.SalesDetail) {
+                        unit['sellingPrice'] = unit.SalesDetails && unit.SalesDetails.SalesDetail.FieldValue;
+                    }
+                });
+            }
+
+            // var locationInput = document.getElementById('location');
+            // if (locationInput) {
+            //     locationFilter = locationInput?.value?.trim();
+            //     if (locationFilter && locationFilter !== '') {
+            //         data.ArrayOfGetUnitsData.GetUnitsData = data.ArrayOfGetUnitsData.GetUnitsData.filter(each => {
+            //             return (each.CityName.toLowerCase() == locationFilter.toLowerCase() || each.CommunityName.toLowerCase() == locationFilter.toLowerCase() || each.PropertyName.toLowerCase() == locationFilter.toLowerCase());
+            //         });
+            //     }
+            // }
+            }
+            return data;
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
+async function renderData() {
+const con9 = document.querySelector('.con9');
+const data = await fetchData(currentPage);
+
+    if (!data || data.ArrayOfGetUnitsData == '') {
+        let pageIndicator = document.getElementById('page-indicator');
+        pageIndicator.innerText = `Record(s) not found.`;
+        con9.innerHTML = ''
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        prevBtn.disabled = true;
+        nextBtn.disabled = true;
+        return;
+    }
+
+    con9.innerHTML = '';
+
+    data.ArrayOfGetUnitsData.GetUnitsData.forEach((unit, index) => {
+    // Display only items within the current page range
+    //if (index >= (currentPage - 1) * itemsPerPage && index < currentPage * itemsPerPage) {
+    const unitDiv = document.createElement('div');
+    unitDiv.classList.add('card');
+
+    // Existing card HTML creation...
+    const listingImage = unit.Images && unit.Images.Image && unit.Images.Image.length > 0 ? unit.Images.Image[0].ImageURL : null;
+
+    let listingPrice = '';
+    if (unit['sellingPrice'] && unit['sellingPrice'] !== "") {
+        listingPrice = unit['sellingPrice']?.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+    } else {
+        const price = +unit?.AnnualRent;
+        listingPrice = price?.toString()?.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+const beds = unit.Bedrooms;
+const baths = unit.Bathrooms;
+const builtupArea = unit.BuiltupArea;
+
+    unitDiv.innerHTML = `${listingImage ? `<div><img src="${listingImage}" alt="property"/></div>` : '<div class="b2"><img src="https://demo.goyzer.com/uploadedFiles/EmailAttachments/fe1387ea-1c75-41fb-9211-2cf5a8f5f07c/noimageavailable2.png" alt="Image not available"/></div>' }
+<div class="b">
+<p class="aed">AED ${listingPrice}</p>
+<p class="title">${unit.TitleEn}</p>
+<p class="area">${unit.PropertyName}</p>
+<ul class="flex">
+    ${beds && beds !== '' ? `<li><i class="fa fa-bed"></i> ${beds} ${beds === 'Studio' ? '' : 'Beds'}</li>` : ''}
+    ${baths && baths !== '' ? `<li><i class="fa fa-bath"></i> ${baths} Baths</li>` : ''}
+    ${builtupArea && builtupArea !== '' ? `<li><i class="fa fa-square-o"></i> ${builtupArea} sqft</li>` : ''}
+</ul>
+</div>`;
+
+con9.appendChild(unitDiv);
+//}
+});
+
+// Update pagination buttons based on current page
+updatePagination(data);
+}
+
+function updatePagination(data) {
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+
+    if (data && data.ArrayOfGetUnitsData.GetUnitsData.length > 0) {
+        if (currentPage === 1) {
+            prevBtn.disabled = true;
+        } else {
+            prevBtn.disabled = false;
+        }
+    } else {
+        prevBtn.disabled = true;
+        nextBtn.disabled = true;
+    }
+
+    // Check if there are more pages
+    let pageIndicator = document.getElementById('page-indicator');
+
+    if (data && data.ArrayOfGetUnitsData.GetUnitsData.length > 0) {
+        const totalItems = +data.ArrayOfGetUnitsData.GetUnitsData[0].Count.split('/')[0];
+        const totalPages = +data.ArrayOfGetUnitsData.GetUnitsData[0].PageIndex.split('/')[1];
+
+        if (pageIndicator) {
+            const pageData = data.ArrayOfGetUnitsData.GetUnitsData[0].PageIndex.split('/');
+            pageIndicator.innerText = `Page ${pageData[0]} of ${pageData[1]}`;
+        }
+
+        if (currentPage === totalPages) {
+            nextBtn.disabled = true;
+        } else {
+            nextBtn.disabled = false;
+        }
+    } else {
+        prevBtn.disabled = true;
+        nextBtn.disabled = true;
+        pageIndicator.innerText = `Record(s) not found.`;
+    }
+}
+
+function prevPage() {
+    if (currentPage > 1) {
+        currentPage--;
+        renderData();
+    }
+
+    /*goto top*/
+    const scrollTop = () => {
+    const c = document.documentElement.scrollTop || document.body.scrollTop;
+        if (c > 0) {
+            window.requestAnimationFrame(scrollTop);
+            window.scrollTo(0, c - c / 55);
+        }
+    };
+    scrollTop();
+    /*end goto top*/
+}
+
+function nextPage() {
+    const totalItems = +data.ArrayOfGetUnitsData.GetUnitsData[0].Count.split('/')[0];
+    const totalPages = +data.ArrayOfGetUnitsData.GetUnitsData[0].PageIndex.split('/')[1];
+
+    if (currentPage < totalPages) {
+        currentPage++;
+        renderData();
+    }
+
+    /*goto top*/
+    const scrollTop = () => {
+    const c = document.documentElement.scrollTop || document.body.scrollTop;
+        if (c > 0) {
+            window.requestAnimationFrame(scrollTop);
+            window.scrollTo(0, c - c / 55);
+        }
+    };
+    scrollTop();
+    /*end goto top*/
+}
+
+// Call renderData initially to display first page
+renderData();
+</script>
+</body>
+</html>
